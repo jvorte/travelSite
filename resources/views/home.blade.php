@@ -1,23 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="main col-sm-5">
+                <h1 class="display-1 mt-5">
+                    Discover the world with every journey,
+            
+                </h1>
+                <p class="display-4 mt-5">
+                    Dream far and live the present.
+                </p>
+              
+       
+            </div>
+            <div class="col-sm-7 ">
+                <img class="img-fluid rounded-2" src="{{ asset('storage/images/a.jpg') }}" alt="Image description">
 
-                    {{ __('You are logged in!') }}
-                </div>
             </div>
         </div>
-    </div>
-</div>
+
 @endsection

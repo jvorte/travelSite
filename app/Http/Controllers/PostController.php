@@ -2,73 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    // ✅ Δημόσια: Λίστα άρθρων
     public function index()
     {
-        $posts = Post::latest()->paginate(5);
+        // Χρησιμοποιούμε paginate αντί για get
+        $posts = Post::latest()->paginate(10);  // Εδώ 10 είναι τα άρθρα ανά σελίδα
+    
+        // Επιστρέφουμε τη σελίδα με την λογική του pagination
         return view('posts.index', compact('posts'));
     }
-
-    public function create()
+    
+    // ✅ Δημόσια: Προβολή ενός άρθρου
+    public function show($id)
     {
-        return view('posts.create');
+        $post = Post::findOrFail($id);  // Βρίσκουμε το άρθρο ή πετάμε 404
+        return view('posts.show', compact('post'));  // Εμφανίζουμε το άρθρο
     }
 
+    // 🛑 Μόνο για συνδεδεμένους χρήστες: Δημιουργία νέου άρθρου
+    public function create()
+    {
+        return view('posts.create');  // Εμφανίζουμε τη φόρμα δημιουργίας άρθρου
+    }
+
+    // 🛑 Μόνο για συνδεδεμένους χρήστες: Αποθήκευση άρθρου
     public function store(Request $request)
     {
+        // Επαλήθευση των πεδίων
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|string|max:255',
             'content' => 'required',
-            'image' => 'nullable|image|max:2048',
         ]);
 
-        $imagePath = $request->file('image') ? $request->file('image')->store('posts', 'public') : null;
-
+        // Δημιουργία του άρθρου
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'image' => $imagePath,
-            'user_id' => Auth::id(),
+            'user_id' => Auth::id(),  // Σύνδεση του άρθρου με τον χρήστη
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Το άρθρο δημιουργήθηκε!');
-    }
-
-    public function show(Post $post)
-    {
-        return view('posts.show', compact('post'));
-    }
-
-    public function edit(Post $post)
-    {
-        return view('posts.edit', compact('post'));
-    }
-
-    public function update(Request $request, Post $post)
-    {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
-
-        if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('posts', 'public');
-            $post->image = $imagePath;
-        }
-
-        $post->update($request->only('title', 'content'));
-
-        return redirect()->route('posts.index')->with('success', 'Το άρθρο ενημερώθηκε!');
-    }
-
-    public function destroy(Post $post)
-    {
-        $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Το άρθρο διαγράφηκε!');
+        // Redirect πίσω με μήνυμα επιτυχίας
+        return redirect()->route('posts.index')->with('success', 'Το άρθρο δημοσιεύτηκε!');
     }
 }

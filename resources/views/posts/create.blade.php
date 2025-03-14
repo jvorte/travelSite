@@ -2,22 +2,20 @@
 
 @section('content')
 <div class="container">
-    <h1>Νέο Άρθρο</h1>
-    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+    <h1>Δημιουργία Άρθρου</h1>
+
+    <form action="{{ route('posts.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label class="form-label">Τίτλος</label>
-            <input type="text" name="title" class="form-control">
+            <label for="title" class="form-label">Τίτλος</label>
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Περιεχόμενο</label>
-            <textarea name="content" class="form-control"></textarea>
+            <label for="content" class="form-label">Περιεχόμενο</label>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Εικόνα</label>
-            <input type="file" name="image" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-success">Δημιουργία</button>
+        <button type="submit" class="btn btn-success">Δημοσίευση</button>
     </form>
 </div>
 @endsection
+

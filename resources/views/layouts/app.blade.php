@@ -10,15 +10,17 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Moon+Dance&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<link href="{{ asset('storage/css/style.css') }}" rel="stylesheet">
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
@@ -29,7 +31,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white ">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -78,16 +80,32 @@
                                 </div>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.index') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.index') }}">About</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('posts.index') }}">Blog</a>
                             </li>
-                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.index') }}">Travels</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.index') }}">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.index') }}">Favorites</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.index') }}">Contact</a>
+                            </li>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
     </div>
