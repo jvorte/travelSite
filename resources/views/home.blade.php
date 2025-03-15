@@ -14,7 +14,20 @@
                     Dream far and live the present.
                 </p>
               
-       
+                @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             </div>
             <div class="col-sm-7 mt-3">
                 <img class="img-fluid rounded-2" src="{{ asset('storage/images/a.jpg') }}" alt="Image description">
@@ -84,23 +97,30 @@
     </p>
     <div class="row">
         <div class="col-sm-6">
-            <form action="">
+            <form action="{{ route('contact.store') }}" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control " id="name" aria-describedby="nameHelp">
-                    <div id="nameHelp" class="form-text">Please enter your name.</div>
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">Please enter your email address.</div>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
                     <label for="message" class="form-label">Message</label>
-                    <textarea class="form-control" id="message" rows="3"></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-danger  my-2">Send</button>
+                <button type="submit" class="btn btn-danger my-2">Send</button>
             </form>
+            
+            
+            @if (session('success'))
+                <div class="alert alert-success mt-3">
+                    {{ session('success') }}
+                </div>
+            @endif
+            
         </div>
         <div class="col-sm-6">
             <img class="img-fluid rounded-2" src="{{ asset('storage/images/d.jpg') }}" alt="Image description">

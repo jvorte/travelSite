@@ -59,7 +59,7 @@
                             <a class="nav-link" href="{{ route('posts.index') }}">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('posts.index') }}">Travels</a>
+                            <a class="nav-link" href="/trips-tips">Trips & Tips</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('posts.index') }}">Shop</a>
@@ -116,18 +116,22 @@
         <div class="container">
             <p class="mb-1">&copy; 2025 YourTravelSite. All rights reserved.</p>
             <p class="mb-0">
-                <a href="/about" class="text-white text-decoration-none">About</a> | 
+                <a href="#about" class="text-white text-decoration-none">About</a> | 
                 <a href="/blog" class="text-white text-decoration-none">Blog</a> | 
-                <a href="/contact" class="text-white text-decoration-none">Contact</a>
+                <a href="#contact" class="text-white text-decoration-none">Contact</a>
             </p>
             <!-- Footer -->
+            
 <footer class="bg-dark text-white text-center py-2">
     <div class="container">
         <p>Subscribe to our Newsletter</p>
-        <form action="#" method="POST">
+        <form action="{{ route('newsletter.subscribe') }}" method="POST">
             <div class="input-group d-flex  justify-content-center">
-                <input type="email" class="form-control newsletterInput " placeholder="Enter your email" aria-label="Email" required>
-                <button class="btn btn-primary" type="submit">Subscribe</button>
+                <form action="{{ route('newsletter.subscribe') }}" method="POST">
+                    @csrf
+                    <input type="email" class="form-control newsletterInput" name="email" placeholder="Enter your email" aria-label="Email" required>
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                </form>
             </div>
         </form>
     </div>

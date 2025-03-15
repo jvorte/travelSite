@@ -3,8 +3,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TripsTipsController;
 
-// Στο αρχείο web.php
+Route::get('/contact', [ContactController::class, 'showForm']);  // Route για την προβολή της φόρμας
+Route::post('/contact', [ContactController::class, 'handleForm'])->name('contact.store');  // Route για την αποστολή της φόρμας
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/trips-tips', [TripsTipsController::class, 'index']);
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // Διαδρομή logout
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
