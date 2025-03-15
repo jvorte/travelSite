@@ -35,13 +35,13 @@
             </p>
             <div class="row mt-5">
                 <div class="col-sm-4">
-                    <img class="img-fluid rounded-2" src="{{ asset('storage/images/5.jpg') }}" alt="Image description">
+                    <img class="img-fluid rounded-2 my-2" src="{{ asset('storage/images/7.jpg') }}" alt="Image description">
                 </div>
                 <div class="col-sm-4">
-                    <img class="img-fluid rounded-2" src="{{ asset('storage/images/b.jpg') }}" alt="Image description">
+                    <img class="img-fluid rounded-2 my-2" src="{{ asset('storage/images/b.jpg') }}" alt="Image description">
                 </div>
                 <div class="col-sm-4">
-                    <img class="img-fluid rounded-2" src="{{ asset('storage/images/c.jpg') }}" alt="Image description">
+                    <img class="img-fluid rounded-2 my-2" src="{{ asset('storage/images/c.jpg') }}" alt="Image description">
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
             <form action="">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" aria-describedby="nameHelp">
+                    <input type="text" class="form-control " id="name" aria-describedby="nameHelp">
                     <div id="nameHelp" class="form-text">Please enter your name.</div>
                 </div>
                 <div class="mb-3">
@@ -99,7 +99,7 @@
                     <label for="message" class="form-label">Message</label>
                     <textarea class="form-control" id="message" rows="3"></textarea>
                 </div>
-                <button type="submit" class="btn btn-danger ">Send</button>
+                <button type="submit" class="btn btn-danger  my-2">Send</button>
             </form>
         </div>
         <div class="col-sm-6">

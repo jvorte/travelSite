@@ -120,6 +120,29 @@
                 <a href="/blog" class="text-white text-decoration-none">Blog</a> | 
                 <a href="/contact" class="text-white text-decoration-none">Contact</a>
             </p>
+            <!-- Footer -->
+<footer class="bg-dark text-white text-center py-2">
+    <div class="container">
+        <p>Subscribe to our Newsletter</p>
+        <form action="#" method="POST">
+            <div class="input-group d-flex  justify-content-center">
+                <input type="email" class="form-control newsletterInput " placeholder="Enter your email" aria-label="Email" required>
+                <button class="btn btn-primary" type="submit">Subscribe</button>
+            </div>
+        </form>
+    </div>
+</footer>
+
+<!-- Footer Styling -->
+<style>
+    footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+    
+</style>
+
         </div>
     </footer>
     
