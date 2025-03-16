@@ -10,7 +10,7 @@
                     Discover the world with every journey,
             
                 </h1>
-                <p class="display-4 mt-5">
+                <p class="display-5 mt-5">
                     Dream far and live the present.
                 </p>
               
