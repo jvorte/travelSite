@@ -28,6 +28,7 @@ class TripsTipsController extends Controller
     {
         return view('trips.create');
     }
+    
 
     // Αποθήκευση νέου ταξιδιού
     public function store(Request $request)

@@ -7,14 +7,20 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TripsTipsController;
 
+
+Route::view('/trips/create', 'trips.create');
+
+
 // Δημιουργία της διαδρομής trips.index
 Route::get('/trips', [TripsTipsController::class, 'index'])->name('trips.index');
-
 // Άλλες διαδρομές
 Route::get('/trips-tips', [TripsTipsController::class, 'index'])->name('trips.tips'); 
 
 Route::get('/trips/{trip}', [TripsTipsController::class, 'show'])->name('trip.show');
+
 Route::get('/trips/create', [TripsTipsController::class, 'create'])->name('trips.create');
+
+
 Route::post('/trips', [TripsTipsController::class, 'store'])->name('trips.store');
 Route::get('trips/{trip}/edit', [TripsTipsController::class, 'edit'])->name('trips.edit');
 Route::put('trips/{trip}', [TripsTipsController::class, 'update'])->name('trips.update');

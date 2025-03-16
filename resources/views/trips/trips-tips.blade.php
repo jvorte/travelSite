@@ -6,7 +6,8 @@
         <p class="text-center">Here you can find travel tips and recommendations for your next adventure!</p>  
         
         @if (Auth::check() && optional(Auth::user())->role === 'admin')
-        <a href="{{ route('trips.create') }}" class="btn btn-primary">New Trip</a>
+        <a href="{{ route('trips.create') }}" class="btn btn-primary mb-">New Trip</a>
+        
     @endif
     
         
@@ -45,6 +46,7 @@
         {{-- end card --}}
         @endforeach
     </div>
+
 
   
 @endsection
