@@ -5,7 +5,7 @@
 {{-- main section --}}
     <div class="container-fluid text-center min-vh-100" id="home">
         <div class="row">
-            <div class="main col-sm-5">
+            <div class="title col-sm-5">
                 <h1 class="display-1 mt-5">
                     Discover the world with every journey,
             
@@ -38,9 +38,9 @@
 {{--end  main section --}}
 
 {{-- about section --}}
-        <div class="container my-5 min-vh-100 " id="about">
-            <h2 class="display-5 text-center ">
-                About Us</h2>
+        <div class="container title my-5 min-vh-100 " id="about">
+            <h1 class="display-5 my-5  text-center ">
+                About Us</h1>
             <p class="lead text-center">
                 We are passionate travelers, storytellers, and adventure seekers. Our mission is to inspire you to explore the world, discover hidden gems, and create unforgettable memories. Through personal experiences, breathtaking photography, and insightful travel tips, we bring you closer to the beauty of each destination.
 
@@ -60,7 +60,7 @@
 
             <div class="row">
                 <div class="col-sm-4">
-                    <h2 class="display-5 mt-5">
+                    <h2 class="display-6 mt-1">
                         Explore
                     </h2>
                     <p class="lead">
@@ -68,7 +68,7 @@
                     </p>
                 </div>
                 <div class="col-sm-4">
-                    <h2 class="display-5 mt-5">
+                    <h2 class="display-6 mt-1">
                         Discover
                     </h2>
                     <p class="lead">
@@ -76,7 +76,7 @@
                     </p>
                 </div>
                 <div class="col-sm-4">
-                    <h2 class="display-5 mt-5">
+                    <h2 class="display-6 mt-1">
                         Dream
                     </h2>
                     <p class="lead">
@@ -88,11 +88,11 @@
 {{-- end about section --}}
 
 {{--  contact section --}}
-<div class="container" id="contact">
-    <h2 class="display-5 text-center">
+<div class="container title" id="contact">
+    <h1 class="display-5 text-center">
         Contact Us
-    </h2>
-    <p class="lead text-center">
+    </h1>
+    <p class="lead text-center my-3">
         We would love to hear from you! If you have any questions, comments, or suggestions, please feel free to contact us.
     </p>
     <div class="row">
