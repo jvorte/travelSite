@@ -3,7 +3,12 @@
 @section('content')
     <div class="container title">
         <h1 class="display-4 text-center">Trips & Tips</h1>
-        <p class="text-center">Here you can find travel tips and recommendations for your next adventure!</p>
+        <p class="text-center">Here you can find travel tips and recommendations for your next adventure!</p>  
+        
+        @if (Auth::check() && optional(Auth::user())->role === 'admin')
+        <a href="{{ route('trips.create') }}" class="btn btn-primary">New Trip</a>
+    @endif
+    
         
         @foreach ($trips as $trip)
          {{-- card --}}
@@ -19,6 +24,15 @@
                   <h5 class="card-title">{{ $trip->title }}</h5> <!-- Αλλαγή από name σε title -->
                   <p class="card-text">{{ $trip->description }}</p>
                   <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  
+                  @if (Auth::check() && Auth::user()->role === 'admin')
+                      <a href="{{ route('trips.edit', $trip->id) }}" class="btn btn-warning">Edit</a>
+                      <form action="{{ route('trips.destroy', $trip->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                  @endif
                 </div>
               </div>
             </div>
@@ -26,4 +40,6 @@
         {{-- end card --}}
         @endforeach
     </div>
+
+  
 @endsection

@@ -1,132 +1,140 @@
 <?php
 
-
-
 namespace App\Http\Controllers;
 
-use App\Models\Trip;  // Αν το μοντέλο Trip είναι αυτό που θες να χρησιμοποιήσεις
+use App\Models\Trip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class TripsTipsController extends Controller
-{// Για την αρχική σελίδα που εμφανίζει όλα τα ταξίδια
-public function index()
 {
-    $trips = Trip::all(); // Πάρε όλα τα ταξίδια
-    return view('trips.trips-tips', compact('trips')); // Περίπτωση για πολλαπλά ταξίδια
-}
-
-// Για την προβολή ενός μεμονωμένου ταξιδιού
-public function show($id)
-{
-    $trip = Trip::findOrFail($id); // Βρες το ταξίδι με το συγκεκριμένο ID
-    return view('trips.trip-show', compact('trip')); // Αντιστοίχισε το ταξίδι στην blade
-}
-
-
-
-    // app/Http/Controllers/TripsTipsController.php
-
-public function create()
-{
-    return view('trips.create');  // Επιστρέφει το view για τη δημιουργία του ταξιδιού
-}
-
-
-// app/Http/Controllers/TripsTipsController.php
-
-public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'location' => 'required|string',
-        'tips' => 'nullable|string',
-        'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Εικόνα 1
-        'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Εικόνα 2
-        'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Εικόνα 3
-    ]);
-
-    // Δημιουργία του ταξιδιού
-    $trip = Trip::create([
-        'title' => $validatedData['title'],
-        'description' => $validatedData['description'],
-        'location' => $validatedData['location'],
-        'tips' => $validatedData['tips'] ?? null,
-    ]);
-
-    // Αποθήκευση της εικόνας, αν υπάρχει
-    if ($request->hasFile('image1')) {
-        $imagePath1 = $request->file('image1')->store('public/images');
-        $trip->update(['image1' => $imagePath1]);
+    // Εμφάνιση όλων των ταξιδιών
+    public function index()
+    {
+        $trips = Trip::all();
+        return view('trips.trips-tips', compact('trips'));
     }
 
-    if ($request->hasFile('image2')) {
-        $imagePath2 = $request->file('image2')->store('public/images');
-        $trip->update(['image2' => $imagePath2]);
+    // Προβολή ενός ταξιδιού
+    public function show($id)
+    {
+        $trip = Trip::findOrFail($id);
+        return view('trips.trip-show', compact('trip'));
     }
 
-    if ($request->hasFile('image3')) {
-        $imagePath3 = $request->file('image3')->store('public/images');
-        $trip->update(['image3' => $imagePath3]);
+    // Φόρμα δημιουργίας ταξιδιού
+    public function create()
+    {
+        return view('trips.create');
     }
 
-    return redirect()->route('trips.index')->with('success', 'Trip created successfully!');
-}
+    // Αποθήκευση νέου ταξιδιού
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string',
+            'tips' => 'nullable|string',
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Προσθήκη τίτλου εάν λείπει
+        if (!isset($validatedData['title'])) {
+            return redirect()->back()->withErrors(['title' => 'The title is required.']);
+        }
+    
+        // Δημιουργία του ταξιδιού
+        $trip = new Trip();
+        $trip->title = $validatedData['title'];
+        $trip->description = $validatedData['description'];
+        $trip->location = $validatedData['location'];
+        $trip->tips = $validatedData['tips'] ?? null; // Αν είναι null, να παραμείνει null
+    
+        // Αποθήκευση εικόνων στον φάκελο storage/app/public/trip-images
+        foreach (['image1', 'image2', 'image3'] as $imageField) {
+            if ($request->hasFile($imageField)) {
+                $trip->$imageField = $request->file($imageField)->store('public/trip-images');
+                $trip->$imageField = str_replace('public/', '', $trip->$imageField);
+            }
+        }
+    
+        // Αποθήκευση ταξιδιού
+        $trip->save();
+   
+        
+        return redirect()->route('trips.tips')->with('success', 'Trip created successfully!');
+        
+    }
+    
 
-
-// app/Http/Controllers/TripsTipsController.php
-
-public function edit($id)
-{
-    $trip = Trip::findOrFail($id);  // Βρίσκουμε το ταξίδι με το ID
-    return view('trips.edit', compact('trip'));  // Επιστρέφουμε το view για την επεξεργασία του ταξιδιού
-}
-
-
-// app/Http/Controllers/TripsTipsController.php
-
-public function update(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    $trip = Trip::findOrFail($id);
-
-    if ($request->hasFile('image')) {
-        // Αν υπάρχει νέα εικόνα, την αποθηκεύουμε
-        $imagePath = $request->file('image')->store('public/images');
-    } else {
-        // Αν δεν υπάρχει νέα εικόνα, διατηρούμε την παλιά
-        $imagePath = $trip->image;
+    // Εμφάνιση φόρμας επεξεργασίας ταξιδιού
+    public function edit($id)
+    {
+        $trip = Trip::findOrFail($id);
+        return view('trips.edit', compact('trip'));
     }
 
-    $trip->update([
-        'name' => $validatedData['name'],
-        'description' => $validatedData['description'],
-        'image' => $imagePath,
-    ]);
-
-    return redirect()->route('trips.index')->with('success', 'Trip updated successfully!');
-}
-
-// app/Http/Controllers/TripsTipsController.php
-
-public function destroy($id)
-{
-    $trip = Trip::findOrFail($id);
-
-    // Αν υπάρχει εικόνα, την διαγράφουμε από το storage
-    if ($trip->image) {
-        \Storage::delete($trip->image);
+    // Ενημέρωση ταξιδιού
+    public function update(Request $request, $id)
+    {
+        // Επικύρωση δεδομένων
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string',
+            'tips' => 'nullable|string',
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Βρίσκουμε το trip
+        $trip = Trip::findOrFail($id);
+    
+        // Ενημέρωση πεδίων εκτός εικόνας
+        $trip->title = $validatedData['title'];
+        $trip->description = $validatedData['description'];
+        $trip->location = $validatedData['location'];
+        $trip->tips = $validatedData['tips'] ?? $trip->tips; // Αν δεν υπάρχει tips, κρατάμε την προηγούμενη τιμή
+    
+        // Ενημέρωση εικόνας (αν υπάρχει αρχείο)
+        foreach (['image1', 'image2', 'image3'] as $imageField) {
+            if ($request->hasFile($imageField)) {
+                // Διαγραφή της παλιάς εικόνας αν υπάρχει
+                if ($trip->$imageField) {
+                    Storage::delete('public/trip-images/' . basename($trip->$imageField));
+                }
+                // Αποθήκευση νέας εικόνας
+                $trip->$imageField = $request->file($imageField)->store('public/trip-images');
+                $trip->$imageField = str_replace('public/', '', $trip->$imageField);
+            }
+        }
+    
+        // Αποθήκευση όλων των αλλαγών
+        $trip->save();
+    
+        // Επιστροφή με επιτυχία
+        return redirect()->route('trips.tips')->with('success', 'Trip updated successfully!');
     }
+    
+    // Διαγραφή ταξιδιού
+    public function destroy($id)
+    {
+        $trip = Trip::findOrFail($id);
 
-    $trip->delete();  // Διαγράφουμε το ταξίδι από τη βάση δεδομένων
+        // Διαγραφή όλων των εικόνων από τον σωστό φάκελο
+        foreach (['image1', 'image2', 'image3'] as $imageField) {
+            if ($trip->$imageField) {
+                Storage::delete('public/trip-images/' . basename($trip->$imageField));
+            }
+        }
 
-    return redirect()->route('trips.index')->with('success', 'Trip deleted successfully!');
-}
+        $trip->delete();
 
-
+        return redirect()->route('trips.tips')->with('success', 'Trip delete successfully!');
+    }
 }
