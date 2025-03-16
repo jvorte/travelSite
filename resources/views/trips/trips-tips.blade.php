@@ -15,14 +15,16 @@
          <div class="card mb-3" style="max-width: 100%;">
             <div class="row g-0">
               <div class="col-md-4">
-                @if ($trip->image)
-                <img src="{{ asset('storage/' . $trip->image) }}" alt="{{ $trip->title }}" />
-                @endif
+  
+                <img class="img-fluid rounded-start" style="width: 18rem;" src="{{ asset('storage/trip-images' . $trip->image2) }}" alt="{{ $trip->title }}" />
+          
               </div>
+        
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title">{{ $trip->title }}</h5> <!-- Αλλαγή από name σε title -->
                   <p class="card-text">{{ $trip->description }}</p>
+                  
                   <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                   
                   @if (Auth::check() && Auth::user()->role === 'admin')
@@ -33,6 +35,9 @@
                           <button type="submit" class="btn btn-danger">Delete</button>
                       </form>
                   @endif
+                  
+                    <!-- View button for each trip -->
+                    <a href="{{ route('trip.show', $trip->id) }}" class="">View</a>
                 </div>
               </div>
             </div>

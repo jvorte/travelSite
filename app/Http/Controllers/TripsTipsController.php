@@ -42,32 +42,28 @@ class TripsTipsController extends Controller
             'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        // Προσθήκη τίτλου εάν λείπει
-        if (!isset($validatedData['title'])) {
-            return redirect()->back()->withErrors(['title' => 'The title is required.']);
-        }
-    
         // Δημιουργία του ταξιδιού
         $trip = new Trip();
         $trip->title = $validatedData['title'];
         $trip->description = $validatedData['description'];
         $trip->location = $validatedData['location'];
-        $trip->tips = $validatedData['tips'] ?? null; // Αν είναι null, να παραμείνει null
+        $trip->tips = $validatedData['tips'] ?? null;
     
-        // Αποθήκευση εικόνων στον φάκελο storage/app/public/trip-images
+        // Αποθήκευση των εικόνων
         foreach (['image1', 'image2', 'image3'] as $imageField) {
             if ($request->hasFile($imageField)) {
-                $trip->$imageField = $request->file($imageField)->store('public/trip-images');
-                $trip->$imageField = str_replace('public/', '', $trip->$imageField);
+                // Αποθήκευση κάθε εικόνας ξεχωριστά
+                $image = $request->file($imageField);
+                $imageName = time() . '_' . $image->getClientOriginalName();  // Προσθήκη timestamp για μοναδικότητα
+                $image->move(public_path('storage/trip-images'), $imageName);  // Αποθήκευση στον κατάλληλο φάκελο
+                $trip->$imageField = '/' . $imageName;  // Αποθήκευση το path στη βάση δεδομένων
             }
         }
     
         // Αποθήκευση ταξιδιού
         $trip->save();
-   
-        
+    
         return redirect()->route('trips.tips')->with('success', 'Trip created successfully!');
-        
     }
     
 
@@ -106,11 +102,17 @@ class TripsTipsController extends Controller
             if ($request->hasFile($imageField)) {
                 // Διαγραφή της παλιάς εικόνας αν υπάρχει
                 if ($trip->$imageField) {
-                    Storage::delete('public/trip-images/' . basename($trip->$imageField));
+                    // Εδώ διαγράφουμε την εικόνα από το φάκελο
+                    $oldImagePath = public_path('storage/trip-images') . basename($trip->$imageField);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
                 }
                 // Αποθήκευση νέας εικόνας
-                $trip->$imageField = $request->file($imageField)->store('public/trip-images');
-                $trip->$imageField = str_replace('public/', '', $trip->$imageField);
+                $image = $request->file($imageField);
+                $imageName = time() . '_' . $image->getClientOriginalName();  // Προσθήκη timestamp για μοναδικότητα
+                $image->move(public_path('storage/trip-images'), $imageName);  // Αποθήκευση στον κατάλληλο φάκελο
+                $trip->$imageField = '/' . $imageName;  // Αποθήκευση το path στη βάση δεδομένων
             }
         }
     
@@ -121,20 +123,32 @@ class TripsTipsController extends Controller
         return redirect()->route('trips.tips')->with('success', 'Trip updated successfully!');
     }
     
+    
     // Διαγραφή ταξιδιού
     public function destroy($id)
     {
         $trip = Trip::findOrFail($id);
-
+    
         // Διαγραφή όλων των εικόνων από τον σωστό φάκελο
         foreach (['image1', 'image2', 'image3'] as $imageField) {
             if ($trip->$imageField) {
-                Storage::delete('public/trip-images/' . basename($trip->$imageField));
+                // Δημιουργία της διαδρομής για το Storage
+                $imagePath = 'storage/trip-images' . basename($trip->$imageField);
+    
+                // Αν η εικόνα υπάρχει στο storage, διαγραφή της
+                if (Storage::disk('public')->exists($imagePath)) {
+                    Storage::disk('public')->delete($imagePath);
+                }
             }
         }
-
+    
+        // Διαγραφή του ταξιδιού από τη βάση δεδομένων
         $trip->delete();
-
-        return redirect()->route('trips.tips')->with('success', 'Trip delete successfully!');
+    
+        // Επιστροφή με επιτυχία
+        return redirect()->route('trips.tips')->with('success', 'Trip deleted successfully!');
     }
+    
+
+    
 }

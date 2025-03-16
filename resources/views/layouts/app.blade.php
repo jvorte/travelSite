@@ -53,7 +53,7 @@
                             <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">About</a>
+                            <a class="nav-link" href="/home#about">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('posts.index') }}">Blog</a>
@@ -68,7 +68,7 @@
                             <a class="nav-link" href="{{ route('posts.index') }}">Favorites</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact</a>
+                            <a class="nav-link" href="home#contact">Contact</a>
                         </li>
                         @guest
                             @if (Route::has('login'))
@@ -114,7 +114,7 @@
     
     <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
-            <p class="mb-1">&copy; 2025 YourTravelSite. All rights reserved.</p>
+            <p class="mb-1">&copy; 2025 FreeLIfe. All rights reserved.</p>
             <p class="mb-0">
                 <a href="#about" class="text-white text-decoration-none">About</a> | 
                 <a href="/blog" class="text-white text-decoration-none">Blog</a> | 
