@@ -7,11 +7,18 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TripsTipsController;
 
+Route::get('/trips-tips', [TripsTipsController::class, 'index']);
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('trips/create', [TripsTipsController::class, 'create'])->name('trips.create');
+    Route::post('trips', [TripsTipsController::class, 'store'])->name('trips.store');
+    Route::get('trips/{trip}/edit', [TripsTipsController::class, 'edit'])->name('trips.edit');
+    Route::put('trips/{trip}', [TripsTipsController::class, 'update'])->name('trips.update');
+    Route::delete('trips/{trip}', [TripsTipsController::class, 'destroy'])->name('trips.destroy');
+});
+
 Route::get('/contact', [ContactController::class, 'showForm']);  // Route για την προβολή της φόρμας
 Route::post('/contact', [ContactController::class, 'handleForm'])->name('contact.store');  // Route για την αποστολή της φόρμας
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-Route::get('/trips-tips', [TripsTipsController::class, 'index']);
 
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
@@ -33,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
 
-
 // Authentication Routes (login, register, logout)
 Auth::routes();
+
 
