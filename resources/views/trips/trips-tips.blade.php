@@ -17,7 +17,7 @@
             <div class="row g-0">
               <div class="col-md-4">
   
-                <img class="img-fluid rounded-start" style="width: 18rem;" src="{{ asset('storage/trip-images' . $trip->image2) }}" alt="{{ $trip->title }}" />
+                <img class="img-fluid rounded-start" style="width: 25rem;" src="{{ asset('storage/trip-images' . $trip->image2) }}" alt="{{ $trip->title }}" />
           
               </div>
         
