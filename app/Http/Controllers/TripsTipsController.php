@@ -53,11 +53,10 @@ class TripsTipsController extends Controller
         // Αποθήκευση των εικόνων
         foreach (['image1', 'image2', 'image3'] as $imageField) {
             if ($request->hasFile($imageField)) {
-                // Αποθήκευση κάθε εικόνας ξεχωριστά
                 $image = $request->file($imageField);
-                $imageName = time() . '_' . $image->getClientOriginalName();  // Προσθήκη timestamp για μοναδικότητα
-                $image->move(public_path('storage/trip-images'), $imageName);  // Αποθήκευση στον κατάλληλο φάκελο
-                $trip->$imageField = '/' . $imageName;  // Αποθήκευση το path στη βάση δεδομένων
+                $imageName = time() . '_' . $image->getClientOriginalName(); // Προσθήκη timestamp για μοναδικότητα
+                $image->move(public_path('storage/trip-images'), $imageName); // Αποθήκευση στο φάκελο
+                $trip->$imageField = $imageName; // Αποθήκευση μόνο του ονόματος στη βάση
             }
         }
     

@@ -50,4 +50,37 @@ class PostController extends Controller
         // Redirect πίσω με μήνυμα επιτυχίας
         return redirect()->route('posts.index')->with('success', 'Το άρθρο δημοσιεύτηκε!');
     }
+
+    // Επεξεργασία άρθρου
+public function edit($id)
+{
+    $post = Post::findOrFail($id);
+    return view('posts.edit', compact('post'));
+}
+
+// Ενημέρωση άρθρου
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required',
+    ]);
+
+    $post = Post::findOrFail($id);
+    $post->update([
+        'title' => $request->title,
+        'content' => $request->content,
+    ]);
+
+    return redirect()->route('posts.index')->with('success', 'Το άρθρο ενημερώθηκε!');
+}
+
+// Διαγραφή άρθρου
+public function destroy($id)
+{
+    $post = Post::findOrFail($id);
+    $post->delete();
+
+    return redirect()->route('posts.index')->with('success', 'Το άρθρο διαγράφηκε!');
+}
 }

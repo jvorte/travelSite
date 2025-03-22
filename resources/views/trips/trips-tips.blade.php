@@ -18,7 +18,7 @@
         <div class="card trip-card mb-3 mx-3" style="max-width: 600px;">
           <div class="row g-0">
             <div class="col-md-6">  
-              <img class="img-fluid rounded-start" style="max-height: 330px" src="{{ asset('storage/trip-images' . $trip->image2) }}" alt="{{ $trip->title }}" />        
+              <img class="img-fluid rounded-start" style="max-height: 330px" src="{{ asset('storage/trip-images/' . $trip->image1) }}" alt="{{ $trip->title }}" />        
             </div>
       
             <div class="col-md-6">

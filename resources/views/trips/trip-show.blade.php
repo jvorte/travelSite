@@ -24,24 +24,24 @@
                     </div>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="{{ asset('storage/trip-images' . $trip->image1) }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('storage/trip-images/' . $trip->image1) }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>{{ $trip->location }}</h5>
+                          <h5>{{ Str::beforeLast($trip->image1, '.')}}</h5>
                           <p>{{ $trip->description }}</p>
                         </div>
                       </div>
                       <div class="carousel-item">
-                        <img src="{{ asset('storage/trip-images' . $trip->image2) }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('storage/trip-images/' . $trip->image2) }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Second slide label</h5>
-                          <p>Some representative placeholder content for the second slide.</p>
+                          <h5>{{ Str::beforeLast($trip->image2, '.')}}</h5>
+                          <p>{{ $trip->description }}</p>
                         </div>
                       </div>
                       <div class="carousel-item">
-                        <img src="{{ asset('storage/trip-images' . $trip->image3) }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('storage/trip-images/' . $trip->image3) }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Third slide label</h5>
-                          <p>Some representative placeholder content for the third slide.</p>
+                          <h5>{{ Str::beforeLast($trip->image3, '.')}}</h5>
+                          <p>{{ $trip->description }}</p>
                         </div>
                       </div>
                     </div>

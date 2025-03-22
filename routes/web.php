@@ -41,7 +41,7 @@ Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
 
 // Διαδρομές προστατευμένες (μόνο για συνδεδεμένους χρήστες)
 Route::middleware('auth')->group(function () {
-    Route::get('/post/create', [PostController::class, 'create'])->name('posts.create');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/post', [PostController::class, 'store'])->name('posts.store');
     Route::get('/post/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::put('/post/{id}', [PostController::class, 'update'])->name('posts.update');
