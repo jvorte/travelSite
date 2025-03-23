@@ -27,6 +27,21 @@
                 <p class="card-text overflow-hidden">{{ $trip->description }}</p>
                 
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <form action="{{ route('favorites.addToFavorites', $trip->id) }}" method="POST">
+                  @csrf
+                  @if(Auth::user()->favorites->contains($trip))
+                      <!-- Αν είναι ήδη στα αγαπημένα, αφαιρούμε -->
+                      @method('DELETE')
+                      <button type="submit" class="btn text-danger">
+                          <i class="fas fa-heart"></i> Remove from Favorites
+                      </button>
+                  @else
+                      <!-- Αν δεν είναι στα αγαπημένα, προσθέτουμε -->
+                      <button type="submit" class="btn text-primary">
+                          <i class="far fa-heart"></i> Add to Favorites
+                      </button>
+                  @endif
+              </form>
                 
                 @if (Auth::check() && Auth::user()->role === 'admin')
                     <a href="{{ route('trips.edit', $trip->id) }}" class="btn text-danger">Edit</a>

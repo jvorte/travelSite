@@ -12,7 +12,9 @@ use App\Http\Controllers\FavoritesController;
 Route::get('/favorites', [FavoritesController::class, 'index'])->name('favorites.index');
 Route::post('/favorites/{trip}', [FavoritesController::class, 'store'])->name('favorites.store');
 Route::delete('/favorites/{trip}', [FavoritesController::class, 'destroy'])->name('favorites.destroy');
+Route::delete('/favorites/{tripId}', [FavoritesController::class, 'destroy'])->name('favorites.destroy');
 
+Route::post('/favorites/{tripId}', [FavoritesController::class, 'addToFavorites'])->name('favorites.addToFavorites');
 
 
 Route::post('/favorites/{trip}', [TripsTipsController::class, 'addToFavorites'])->name('favorites.add');

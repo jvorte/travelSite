@@ -5,17 +5,10 @@
         <h1 class="display-4 text-center">Trip & Tips</h1>
         <p class="text-center">Here you can find travel tips and recommendations for your next adventure!</p>
     </div>
- 
-        {{--
-        @if (Auth::check() && optional(Auth::user())->role === 'admin')
-        <a href="{{ route('trips.create') }}" class="btn  mb-3">+Add Trip</a>
 
-        @endif --}}
-
-        <div class="container text-center">
-            <div class="row">
-              <div class="col-sm-6">
-
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-6">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                     <div class="carousel-indicators">
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -54,23 +47,33 @@
                       <span class="visually-hidden">Next</span>
                     </button>
                   </div>
+            </div>
 
-
-              </div>
-              <div class="col-sm-6">
-                <form action="{{ route('favorites.add', $trip->id) }}" method="POST">
+            <div class="col-sm-6">
+                <!-- Form for Adding/Removing Favorite -->
+                <form action="{{ route('favorites.addToFavorites', $trip->id) }}" method="POST">
                   @csrf
-                  <button type="submit" class="btn text-primary">Add to Favorites</button>
+                  @if(Auth::user()->favorites->contains($trip))
+                      <!-- Αν είναι ήδη στα αγαπημένα, αφαιρούμε -->
+                      @method('DELETE')
+                      <button type="submit" class="btn text-danger">
+                          <i class="fas fa-heart"></i> Remove from Favorites
+                      </button>
+                  @else
+                      <!-- Αν δεν είναι στα αγαπημένα, προσθέτουμε -->
+                      <button type="submit" class="btn text-primary">
+                          <i class="far fa-heart"></i> Add to Favorites
+                      </button>
+                  @endif
               </form>
               
+
+                
                 <h1>{{ $trip->title }}</h1>
                 <p>{{ $trip->description }}</p>
                 <p>{{ $trip->location }}</p>
-              </div>
             </div>
-      
-          </div>
-
-
+        </div>
+    </div>
 
 @endsection
