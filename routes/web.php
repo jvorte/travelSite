@@ -8,10 +8,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TripsTipsController;
 
 
+Route::post('/favorites/{trip}', [TripsTipsController::class, 'addToFavorites'])->name('favorites.add');
+
+
 Route::view('/trips/create', 'trips.create');
-
-
-// Δημιουργία της διαδρομής trips.index
 Route::get('/trips', [TripsTipsController::class, 'index'])->name('trips.index');
 // Άλλες διαδρομές
 Route::get('/trips-tips', [TripsTipsController::class, 'index'])->name('trips.tips'); 

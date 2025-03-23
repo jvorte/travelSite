@@ -11,6 +11,11 @@ class Trip extends Model
 {
     use HasFactory;
 
+    public function users()
+{
+    return $this->belongsToMany(User::class, 'favorites');
+}
+
     // Ορίστε τα πεδία που είναι "fillable" για μαζική ανάθεση
     protected $fillable = ['name', 'description', 'image'];
 }

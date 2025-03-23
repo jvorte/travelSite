@@ -58,6 +58,11 @@
 
               </div>
               <div class="col-sm-6">
+                <form action="{{ route('favorites.add', $trip->id) }}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn text-primary">Add to Favorites</button>
+              </form>
+              
                 <h1>{{ $trip->title }}</h1>
                 <p>{{ $trip->description }}</p>
                 <p>{{ $trip->location }}</p>

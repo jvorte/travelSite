@@ -149,6 +149,13 @@ class TripsTipsController extends Controller
         return redirect()->route('trips.tips')->with('success', 'Trip deleted successfully!');
     }
     
-
+    public function addToFavorites($tripId)
+    {
+        $user = auth()->user();
+        $user->favorites()->attach($tripId);
+    
+        return back()->with('success', 'Trip added to favorites!');
+    }
+    
     
 }

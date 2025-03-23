@@ -11,7 +11,10 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
+    public function favorites()
+    {
+        return $this->belongsToMany(Trip::class, 'favorites');
+    }
     public function isAdmin()
 {
     return $this->role === 'admin';  // Βεβαιώσου ότι το πεδίο "role" υπάρχει στη βάση δεδομένων
