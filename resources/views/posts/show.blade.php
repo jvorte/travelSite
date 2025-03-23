@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <img class="img-fluid rounded-2" src="{{ asset('storage/images/see.jpg') }}" alt="Image description">
     <h1>{{ $post->title }}</h1>
     <p>{{ $post->content }}</p>
 
