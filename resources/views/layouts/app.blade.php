@@ -65,7 +65,8 @@
                             <a class="nav-link" href="{{ route('posts.index') }}">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('posts.index') }}">Favorites</a>
+                            <a class="nav-link" href="{{ route('favorites.index') }}">Favorites</a>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="home#contact">Contact</a>

@@ -157,5 +157,4 @@ class TripsTipsController extends Controller
         return back()->with('success', 'Trip added to favorites!');
     }
     
-    
 }

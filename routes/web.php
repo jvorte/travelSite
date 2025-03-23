@@ -6,6 +6,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TripsTipsController;
+use App\Http\Controllers\FavoritesController;
+
+
+Route::get('/favorites', [FavoritesController::class, 'index'])->name('favorites.index');
+Route::post('/favorites/{trip}', [FavoritesController::class, 'store'])->name('favorites.store');
+Route::delete('/favorites/{trip}', [FavoritesController::class, 'destroy'])->name('favorites.destroy');
+
 
 
 Route::post('/favorites/{trip}', [TripsTipsController::class, 'addToFavorites'])->name('favorites.add');
