@@ -4,7 +4,7 @@
     <div class="container title">
         <h1 class="display-4 text-center">Trips & Tips</h1>
         <p class="text-center">Here you can find travel tips and recommendations for your next adventure!</p>  
-        
+        <img class="img-fluid rounded-2" src="{{ asset('storage/images/family.jpg') }}" alt="Image description">
         @if (Auth::check() && optional(Auth::user())->role === 'admin')
         <a href="{{ route('trips.create') }}" class="btn  mb-3">+Add Trip</a>
         

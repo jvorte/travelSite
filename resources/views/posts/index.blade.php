@@ -14,6 +14,7 @@
         Moments and dreams, with hearts everywhere.
         Follow our pages, new stories unfold,
         Our blog is open, and adventures are told.</p>
+        <img class="img-fluid rounded-2" src="{{ asset('storage/images/people.jpg') }}" alt="Image description">
 
         @auth
         <a href="{{ route('posts.create') }}" class="btn text-primary">+Add Post</a>

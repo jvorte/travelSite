@@ -62,9 +62,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/trips-tips">Trips & Tips</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('posts.index') }}">Shop</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('favorites.index') }}">Favorites</a>
 
