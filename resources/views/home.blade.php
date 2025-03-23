@@ -95,8 +95,10 @@
     <p class="lead text-center my-3">
         We would love to hear from you! If you have any questions, comments, or suggestions, please feel free to contact us.
     </p>
-    <div class="row">
+    <div class="row mt-5">
+ 
         <div class="col-sm-6">
+       
             <form action="{{ route('contact.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">

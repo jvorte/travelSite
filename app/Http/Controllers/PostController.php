@@ -83,4 +83,21 @@ public function destroy($id)
 
     return redirect()->route('posts.index')->with('success', 'Το άρθρο διαγράφηκε!');
 }
+
+public function storeComment(Request $request, Post $post)
+{
+    $request->validate([
+        'content' => 'required|string|max:500',
+    ]);
+
+    $post->comments()->create([
+        'user_id' => Auth::id(),
+        'body' => $request->content,  // Χρησιμοποίησε το body και όχι το content
+    ]);
+
+    return back()->with('success', 'Το σχόλιό σας προστέθηκε!');
+}
+
+
+
 }

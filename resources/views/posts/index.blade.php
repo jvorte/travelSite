@@ -27,10 +27,12 @@
             <div class="card-body">
                 <h2><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h2>
                 <p>{{ Str::limit($post->content, 100) }}</p>
-                <a href="{{ route('posts.show', $post) }}" class="btn btn-primary">Διαβάστε περισσότερα</a>
+                <p>Created by: {{ $post->user->name }}</p>
+                <a href="{{ route('posts.show', $post) }}" class="btn text-primary">Read more...</a>
+                
 
                 <!-- Εμφάνιση Edit & Delete αν ο χρήστης είναι admin ή ο δημιουργός -->
-                @if(auth()->check() && (auth()->user()->isAdmin() || auth()->id() === $post->user_id))
+                {{-- @if(auth()->check() && (auth()->user()->isAdmin() || auth()->id() === $post->user_id))
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn text-warning">Edit</a>
 
                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline">
@@ -38,7 +40,7 @@
                         @method('DELETE')
                         <button type="submit" class="btn text-danger" onclick="return confirm('Είσαι σίγουρος;')">Delete</button>
                     </form>
-                @endif
+                @endif --}}
             </div>
         </div>
     @endforeach

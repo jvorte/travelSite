@@ -40,6 +40,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
 
 // Διαδρομές προστατευμένες (μόνο για συνδεδεμένους χρήστες)
+
+
+
+Route::post('/posts/{post}/comments', [PostController::class, 'storeComment'])
+    ->name('posts.comments.store')
+    ->middleware('auth');
+
+    
+    // Μόνο για συνδεδεμένους χρήστες
+ // Επιτρέπει μόνο σε συνδεδεμένους χρήστες
+
 Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/post', [PostController::class, 'store'])->name('posts.store');
