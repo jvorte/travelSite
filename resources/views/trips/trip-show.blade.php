@@ -53,18 +53,19 @@
                 <!-- Form for Adding/Removing Favorite -->
                 <form action="{{ route('favorites.addToFavorites', $trip->id) }}" method="POST">
                   @csrf
-                  @if(Auth::user()->favorites->contains($trip))
-                      <!-- Αν είναι ήδη στα αγαπημένα, αφαιρούμε -->
-                      @method('DELETE')
-                      <button type="submit" class="btn text-danger">
-                          <i class="fas fa-heart"></i> Remove from Favorites
-                      </button>
-                  @else
-                      <!-- Αν δεν είναι στα αγαπημένα, προσθέτουμε -->
-                      <button type="submit" class="btn text-primary">
-                          <i class="far fa-heart"></i> Add to Favorites
-                      </button>
-                  @endif
+                  @if(Auth::check() && Auth::user()->favorites && Auth::user()->favorites->contains($trip))
+                  <!-- Αν είναι ήδη στα αγαπημένα, αφαιρούμε -->
+                  @method('DELETE')
+                  <button type="submit" class="btn text-danger">
+                      <i class="fas fa-heart"></i> Remove from Favorites
+                  </button>
+              @elseif(Auth::check()) <!-- Αν ο χρήστης είναι συνδεδεμένος αλλά δεν είναι στα αγαπημένα -->
+                  <!-- Αν δεν είναι στα αγαπημένα, προσθέτουμε -->
+                  <button type="submit" class="btn text-primary">
+                      <i class="far fa-heart"></i> Add to Favorites
+                  </button>
+              @endif
+              
               </form>
               
 

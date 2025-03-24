@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container title">
         <h1 class="display-4 text-center">My Favorite Trips</h1>
         <p class="text-center">Here you can find travel tips and recommendations for your next adventure!</p>
