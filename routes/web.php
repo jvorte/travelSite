@@ -36,8 +36,10 @@ Route::put('trips/{trip}', [TripsTipsController::class, 'update'])->name('trips.
 Route::delete('trips/{trip}', [TripsTipsController::class, 'destroy'])->name('trips.destroy');
 
 // Διαδρομές για contact και newsletter
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
 Route::get('/contact', [ContactController::class, 'showForm']);  
-Route::post('/contact', [ContactController::class, 'handleForm'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // Διαδρομή logout

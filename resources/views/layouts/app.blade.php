@@ -57,11 +57,12 @@
                             <a class="nav-link" href="/home#about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('posts.index') }}">Blog</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="/trips-tips">Trips & Tips</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.index') }}">Blog</a>
+                        </li>
+                
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('posts.index') }}">Shop</a>
                         </li> --}}
@@ -70,8 +71,10 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="home#contact">Contact</a>
+                            <a class="nav-link" href="/contact">Contact</a>
                         </li>
+                        
+                        
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
