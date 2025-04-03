@@ -50,7 +50,6 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/post/{id}', [PostController::class, 'show'])->name('posts.show');
 
-// Διαδρομές προστατευμένες (μόνο για συνδεδεμένους χρήστες)
 
 
 
