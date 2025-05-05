@@ -11,9 +11,12 @@ class FavoritesController extends Controller
     // Μέθοδος για την προβολή των αγαπημένων
     public function index()
     {
-        $favorites = Auth::user()->favorites;
-        return view('favorites.fav', compact('favorites'));
+        $user = Auth::user();
+        $favorites = optional($user)->favorites;
+    
+        return view('favorites.fav', compact('favorites', 'user'));
     }
+    
 
     // Μέθοδος για την προσθήκη ή αφαίρεση ενός ταξιδιού από τα αγαπημένα
     public function addToFavorites($tripId)
